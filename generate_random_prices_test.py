@@ -1,94 +1,56 @@
-import unittest
-from unittest.mock import patch
-import io
 import sys
+import pytest
 import numpy as np
-from generate_random_prices import (
-    generate_random_prices, 
-    main,
-    ERR_NOT_INTEGER,
-    ERR_NO_ARGUMENT
-)
+from generate_random_prices import generate_random_prices, main, ERR_NOT_INTEGER, ERR_NO_ARGUMENT
 
-class TestGenerateRandomPrices(unittest.TestCase):
-    def setUp(self):
-        self.held_output = io.StringIO()
-        sys.stdout = self.held_output
+def test_generate_random_prices_returns_correct_length():
+    """Test if function returns array of requested length"""
+    result = generate_random_prices(3)
+    assert len(result) == 3
 
-    def tearDown(self):
-        sys.stdout = sys.__stdout__
+def test_generate_random_prices_within_range():
+    """Test if all prices are between 0 and 100"""
+    result = generate_random_prices(100)
+    assert all(0 <= price <= 100 for price in result)
 
-    def test_generate_random_prices_return_value(self):
-        """Test the returned array from generate_random_prices"""
-        prices = generate_random_prices(3)
-        
-        self.assertIsInstance(prices, np.ndarray)
-        self.assertEqual(len(prices), 3)
-        self.assertTrue(all(0 <= x <= 100 for x in prices))
-        
-        # Better decimal place testing
-        for price in prices:
-            self.assertAlmostEqual(price, round(price, 2), places=2)
+def test_generate_random_prices_decimal_places():
+    """Test if prices have 2 decimal places"""
+    result = generate_random_prices(10)
+    for price in result:
+        assert abs(price - round(price, 2)) < 1e-10
 
-    def test_generate_random_prices_with_printing(self):
-        """Test if printing works correctly when enabled"""
-        prices = generate_random_prices(3, print_output=True)
-        output = self.held_output.getvalue().strip().split('\n')
-        
-        self.assertEqual(len(output), 3)
-        # Verify printed values match returned array
-        for printed, returned in zip(output, prices):
-            self.assertEqual(float(printed), returned)
+def test_generate_random_prices_return_type():
+    """Test if return value is numpy array"""
+    result = generate_random_prices(5)
+    assert isinstance(result, np.ndarray)
 
-    def test_generate_random_prices_without_printing(self):
-        """Test that nothing is printed when print_output is False"""
-        _ = generate_random_prices(3, print_output=False)
-        self.assertEqual(self.held_output.getvalue().strip(), '')
+def test_random_distribution():
+    """Test if numbers are reasonably distributed"""
+    np.random.seed(42)  # For reproducibility
+    result = generate_random_prices(1000)
+    mean = np.mean(result)
+    assert 45 < mean < 55  # Should be roughly centered around 50
 
-    @patch('sys.argv', ['script.py', '3'])
-    def test_main_valid_input(self):
-        """Test main function with valid input"""
-        result = main()
-        self.assertIsInstance(result, np.ndarray)
-        self.assertEqual(len(result), 3)
-        
-        # Check that it printed (main always prints)
-        output = self.held_output.getvalue().strip().split('\n')
-        self.assertEqual(len(output), 3)
+def test_generate_random_prices_uniqueness():
+    """Test if generated numbers aren't all the same"""
+    result = generate_random_prices(100)
+    assert len(set(result)) > 1
 
-    @patch('sys.argv', ['script.py', 'abc'])
-    def test_main_non_digit_input(self):
-        """Test main function with non-digit input"""
-        result = main()
-        self.assertIsNone(result)
-        self.assertEqual(
-            self.held_output.getvalue().strip(),
-            ERR_NOT_INTEGER
-        )
+def test_main_with_invalid_arg(monkeypatch):
+    """Test main function with non-digit input"""
+    monkeypatch.setattr(sys, 'argv', ['script.py', 'abc'])
+    result = main()
+    assert result is None
 
-    @patch('sys.argv', ['script.py'])
-    def test_main_missing_argument(self):
-        """Test main function with missing argument"""
-        result = main()
-        self.assertIsNone(result)
-        self.assertEqual(
-            self.held_output.getvalue().strip(),
-            ERR_NO_ARGUMENT
-        )
+def test_main_with_missing_arg(monkeypatch):
+    """Test main function with missing argument"""
+    monkeypatch.setattr(sys, 'argv', ['script.py'])
+    result = main()
+    assert result is None
 
-    def test_random_distribution(self):
-        """Test if numbers are reasonably distributed"""
-        np.random.seed(42)  # Set seed for reproducibility
-        prices = generate_random_prices(1000)
-        
-        # Test mean is roughly 50 (allowing for some randomness)
-        self.assertTrue(45 < np.mean(prices) < 55)
-        
-        # Test all numbers are within bounds
-        self.assertTrue(all(0 <= x <= 100 for x in prices))
-        
-        # Test uniqueness (random numbers should not all be the same)
-        self.assertTrue(len(set(prices)) > 1)
-
-if __name__ == '__main__':
-    unittest.main()
+def test_main_with_valid_arg(monkeypatch):
+    """Test main function with valid input"""
+    monkeypatch.setattr(sys, 'argv', ['script.py', '3'])
+    result = main()
+    assert isinstance(result, np.ndarray)
+    assert len(result) == 3

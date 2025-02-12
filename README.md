@@ -15,3 +15,9 @@
 ```bash
 $ python3 generate_random_prices.py <number-of-elements>
 ```
+
+## Test
+
+```bash
+$ pytest generate_random_prices_test.py -v
+```

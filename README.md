@@ -6,3 +6,10 @@
   - Please use snake_case for file and directory names - no spaces, no capital letters.
 - Write one or more unit tests for your code
 - Try to optimise your code - what's the fastest you can generate 100,000 random prices in that range?
+
+
+-------
+
+```bash
+$ python3 generate_random_prices.py <number-of-elements>
+```

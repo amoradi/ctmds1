@@ -21,3 +21,9 @@ $ python3 generate_random_prices.py <number-of-elements>
 ```bash
 $ pytest generate_random_prices_test.py -v
 ```
+
+## Benchmark
+
+```bash
+$ python3 benchmark.py
+```

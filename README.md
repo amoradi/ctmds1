@@ -10,6 +10,8 @@
 
 -------
 
+## Run 
+
 ```bash
 $ python3 generate_random_prices.py <number-of-elements>
 ```

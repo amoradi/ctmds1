@@ -1,8 +1,7 @@
 import sys
 import numpy as np
 
-ERR_NOT_INTEGER = "Error: Please provide a valid integer"
-ERR_NO_ARGUMENT = "Error: Please provide a number argument"
+from ctmds1.constants import ERR_NOT_INTEGER, ERR_NO_ARGUMENT
 
 def generate_random_prices(num, print_output=False):
     """
@@ -39,4 +38,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
     

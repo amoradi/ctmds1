@@ -3,11 +3,8 @@ import random
 import numpy as np
 
 # Methods are purely focused on computation. Printing is removed entirely so to not interfere with benchmarking.
-def loop_method(n):
-    numbers = []
-    for _ in range(n):
-        numbers.append(round(random.uniform(0, 100), 2))
-    return numbers
+def loop_method(n: int) -> list[float]:
+    return [round(random.uniform(0, 100), 2) for _ in range(n)]
 
 def numpy_method(n):
     return np.round(np.random.uniform(0, 100, size=n), 2)

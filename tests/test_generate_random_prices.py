@@ -1,7 +1,7 @@
 import sys
 import pytest
 import numpy as np
-from generate_random_prices import generate_random_prices, main, ERR_NOT_INTEGER, ERR_NO_ARGUMENT
+from ctmds1.main import generate_random_prices, main, ERR_NOT_INTEGER, ERR_NO_ARGUMENT
 
 def test_generate_random_prices_returns_correct_length():
     """Test if function returns array of requested length"""

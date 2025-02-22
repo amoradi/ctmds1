@@ -23,5 +23,5 @@ $ poetry run pytest
 ## Benchmark
 
 ```bash
-$ python3 benchmarks/bench_main.py
+$ poetry run python3 benchmarks/bench_main.py
 ```

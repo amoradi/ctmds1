@@ -1,42 +1,26 @@
-import sys
 import numpy as np
+import sys
+import typer
+from typing import Optional
 
-from ctmds1.constants import ERR_NOT_INTEGER, ERR_NO_ARGUMENT
+from ctmds1.generate_random_prices import generate_random_prices
 
-def generate_random_prices(num, print_output=False):
-    """
-    Generate random prices between 0 and 100 with 2 decimal places
-    
-    Args:
-        num (int): Number of prices to generate
-        print_output (bool): Whether to print the results
-    
-    Returns:
-        numpy.ndarray: Array of random prices
-    """
-    prices = np.round(np.random.uniform(0, 100, size=num), 2)
-    
-    if print_output:
-        np.savetxt(sys.stdout, prices, fmt='%.2f')
-    
-    return prices
+def validate_non_negative(value: int) -> int:
+    if value < 0:
+        raise typer.BadParameter("Number must be non-negative")
+    return value
 
-def main():
-    try:
-        if not sys.argv[1].isdigit():
-            print(ERR_NOT_INTEGER)
-            return None
-        
-        num = int(sys.argv[1])
-            
-        # By default, print when running from command line
-        return generate_random_prices(num, print_output=True)
-            
-    except IndexError:
-        print(ERR_NO_ARGUMENT)
-        return None
+def main(
+    num: int = typer.Argument(
+        ..., 
+        help="Number of random prices to generate",
+        callback=validate_non_negative
+    )
+) -> Optional[np.ndarray]:
+    result = generate_random_prices(num)
+    print(np.array2string(result, separator='\n', max_line_width=np.inf)[1:-1])
+    return result
 
 if __name__ == '__main__':
-    main()
-    
+    typer.run(main)
     

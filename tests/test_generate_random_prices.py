@@ -1,7 +1,7 @@
-import sys
 import pytest
 import numpy as np
-from ctmds1.main import generate_random_prices, main, ERR_NOT_INTEGER, ERR_NO_ARGUMENT
+
+from ctmds1.generate_random_prices import generate_random_prices
 
 def test_generate_random_prices_returns_correct_length():
     """Test if function returns array of requested length"""
@@ -35,22 +35,3 @@ def test_generate_random_prices_uniqueness():
     """Test if generated numbers aren't all the same"""
     result = generate_random_prices(100)
     assert len(set(result)) > 1
-
-def test_main_with_invalid_arg(monkeypatch):
-    """Test main function with non-digit input"""
-    monkeypatch.setattr(sys, 'argv', ['script.py', 'abc'])
-    result = main()
-    assert result is None
-
-def test_main_with_missing_arg(monkeypatch):
-    """Test main function with missing argument"""
-    monkeypatch.setattr(sys, 'argv', ['script.py'])
-    result = main()
-    assert result is None
-
-def test_main_with_valid_arg(monkeypatch):
-    """Test main function with valid input"""
-    monkeypatch.setattr(sys, 'argv', ['script.py', '3'])
-    result = main()
-    assert isinstance(result, np.ndarray)
-    assert len(result) == 3

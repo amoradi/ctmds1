@@ -25,3 +25,14 @@ $ poetry run pytest
 ```bash
 $ poetry run python3 benchmarks/bench_main.py
 ```
+
+## Dev Tools
+
+```bash
+$ make lint
+$ make format
+$ make pyright
+$ make test
+$ make coverage
+$ make check # run all
+```

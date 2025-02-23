@@ -1,6 +1,6 @@
 DIRS = ctmds1/ tests/
 
-.PHONY: lint format pyright test coverage
+.PHONY: lint format typecheck pyright test coverage coverage-html benchmark
 
 # Default to empty, can be overridden with make lint DIFF=1
 DIFF_FLAG = $(if $(DIFF),--diff,)
@@ -22,6 +22,9 @@ coverage:
 
 coverage-html:
 	poetry run coverage html
+
+benchmark:
+	poetry run python3 benchmarks/bench_main.py
 
 # Convenience target to run all checks
 check: lint format typecheck test coverage coverage-html

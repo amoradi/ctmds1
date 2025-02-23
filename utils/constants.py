@@ -16,7 +16,7 @@ class Granularity(Enum):
     HALF_HOURLY = "hh"
 
 
-_countryCodeBasePrices: Dict[CountryCode, float] = {
+_countryCodeBasePrices: Dict[CountryCode, int] = {
     CountryCode.DE: 57,
     CountryCode.FR: 58,
     CountryCode.GB: 61,

@@ -11,7 +11,7 @@ $ pip3 install poetry
 ## Run 
 
 ```bash
-$ poetry run python3 ctmds1/main.py <number-of-elements>
+$ poetry run python3 cli.py <number-of-elements>
 ```
 
 ## Dev Tools

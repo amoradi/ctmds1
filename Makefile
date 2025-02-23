@@ -1,4 +1,4 @@
-DIRS = ctmds1/ tests/
+DIRS = .
 
 .PHONY: lint format typecheck pyright test coverage coverage-html benchmark
 

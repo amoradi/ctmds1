@@ -1,5 +1,4 @@
-# ctmds1
-
+Commodity Prices CLI
 
 ## Setup
 
@@ -8,13 +7,20 @@ $ pip3 install poetry
 ```
 
 
-## Run 
+## CLI Commands
 
 ```bash
-$ poetry run python3 cli.py <number-of-elements>
+$ # help
+$ poetry run python3 -m cli --help
+$
+$ # random-prices command
+$ poetry run python3 -m cli random-prices <number-of-elements>
+$
+$ # daily prices command
+$ poetry run python3 -m cli daily-prices
 ```
 
-## Dev Tools
+## Dev Commands
 
 ```bash
 $ make lint

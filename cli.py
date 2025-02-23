@@ -8,6 +8,7 @@ from utils.validation import validate_non_negative
 
 app = typer.Typer()
 
+
 @app.command()
 def random_prices(
     num: int = typer.Argument(
@@ -19,9 +20,10 @@ def random_prices(
     return result
 
 
-# @app.command()
-# def daily_prices()
-#     # todo
+@app.command()
+def daily_prices():
+    print("TODO")
+
 
 if __name__ == "__main__":
     app()

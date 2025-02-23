@@ -1,4 +1,4 @@
-Commodity Prices CLI
+# Commodity Prices CLI
 
 ## Setup
 
@@ -13,10 +13,10 @@ $ pip3 install poetry
 $ # help
 $ poetry run python3 -m cli --help
 $
-$ # random-prices command
-$ poetry run python3 -m cli random-prices <number-of-elements>
+$ # random-prices
+$ poetry run python3 -m cli random-prices <number-of-prices>
 $
-$ # daily prices command
+$ # daily prices
 $ poetry run python3 -m cli daily-prices
 ```
 

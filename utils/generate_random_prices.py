@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def generate_random_prices(num):
+def generate_random_prices(num: int) -> np.ndarray:
     """
     Generate random prices between 0 and 100 with 2 decimal places
 

@@ -30,17 +30,10 @@ def daily_prices(
         ...,
         help=f"Country code ({', '.join(code.value for code in CountryCode)})",
     ),
+    granularity: str = typer.Option(default="h", help="h: hourly hh: half hourly"),
 ):
     """
     TODO: annotate.
-
-    Add a typer command to your CLI which takes a for_date and a country_code
-    and returns a list of random hourly prices for that day.
-
-    Model the prices as a normal distribution for now, around some
-    configurable base price for each country. Let's say we support these countries initially:
-    GB, FR, NL, DE and the base price for each is respectively: 61, 58, 52, 57.
-    DONE
 
     In your output, ensure to label the hours, in some sensible way.
     E.g. 0000: 57.35; 0100: 56.98; 0200: 57.45; ...
@@ -55,10 +48,10 @@ def daily_prices(
     causes great losses or unrealised gains - and anxiety - for many trading companies
     due to various pieces of software not handling this correctly!
     """
-    daily_prices = generate_normal_distribution(countryCodeMeanPrices[country_code], 24)
-
-    # tuple times to prices, e.g. 0000: 57.35; 0100: 34:20
-    #
+    size = 48 if granularity == "hh" else 24
+    daily_prices = generate_normal_distribution(
+        countryCodeMeanPrices[country_code], size
+    )
 
     print("daily prices", daily_prices)
 

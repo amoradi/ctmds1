@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def generate_normal_distribution(mean: int, size: int = 24, decimals = 2) -> np.ndarray:
+def generate_normal_distribution(mean: int, size: int = 24, decimals=2) -> np.ndarray:
     """
     Generate numbers following a normal distribution.
 

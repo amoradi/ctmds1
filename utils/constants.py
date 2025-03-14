@@ -1,6 +1,4 @@
 from enum import Enum, unique
-from typing import Dict
-
 
 @unique
 class CountryCode(Enum):
@@ -16,7 +14,7 @@ class Granularity(Enum):
     HALF_HOURLY = "hh"
 
 
-countryCodeMeanPrices: Dict[CountryCode, int] = {
+countryCodeMeanPrices: dict[CountryCode, int] = {
     CountryCode.DE: 57,
     CountryCode.FR: 58,
     CountryCode.GB: 61,

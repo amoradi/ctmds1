@@ -10,6 +10,7 @@ class CountryCode(Enum):
     GB = "GB"
     NL = "NL"
 
+
 @unique
 class Granularity(Enum):
     HOURLY = "h"

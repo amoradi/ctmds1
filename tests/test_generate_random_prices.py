@@ -1,6 +1,6 @@
 import numpy as np
 
-from ctmds1.generate_random_prices import generate_random_prices
+from utils.generate_random_prices import generate_random_prices
 
 
 def test_generate_random_prices_returns_correct_length():

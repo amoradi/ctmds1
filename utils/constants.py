@@ -1,5 +1,4 @@
 from enum import Enum, unique
-from types import MappingProxyType
 from typing import Dict
 
 
@@ -17,11 +16,9 @@ class Granularity(Enum):
     HALF_HOURLY = "hh"
 
 
-_countryCodeMeanPrices: Dict[CountryCode, int] = {
+countryCodeMeanPrices: Dict[CountryCode, int] = {
     CountryCode.DE: 57,
     CountryCode.FR: 58,
     CountryCode.GB: 61,
     CountryCode.NL: 52,
 }
-
-countryCodeMeanPrices = MappingProxyType(_countryCodeMeanPrices)

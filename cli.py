@@ -7,6 +7,8 @@ import typer
 from utils.constants import CountryCode, countryCodeMeanPrices
 from utils.generate_normal_distribution import generate_normal_distribution
 from utils.generate_random_prices import generate_random_prices
+from utils.generate_times import generate_times
+from utils.is_dst_transition_day import is_dst_transition_day
 from utils.validation import validate_non_negative
 
 app = typer.Typer()
@@ -32,28 +34,25 @@ def daily_prices(
     ),
     granularity: str = typer.Option(default="h", help="h: hourly hh: half hourly"),
 ):
-    """
-    TODO: annotate.
+    hourSize = 24
 
-    In your output, ensure to label the hours, in some sensible way.
-    E.g. 0000: 57.35; 0100: 56.98; 0200: 57.45; ...
-    Add support for a --granularity option, with values h (for hourly - the default)
-    or hh (for half-hourly, i.e. every 30 minutes)
+    match is_dst_transition_day(for_date.strftime("%Y-%m-%d"), country_code.value):
+        case "short":
+            hourSize = 23
+        case "long":
+            hourSize = 25
 
-    We're still keeping this intentionally abstract - but will soon make it more tangible
-    with some commodity specific pricing details. For now, keep in mind the edge cases
-    around the inputs. E.g. not all days have 24 hours in them! These countries all have
-    Daylight Savings Time, which means every year has a "short day" (23 hours)
-    and a "long day" (25 hours). In my experience, every year this little gotcha
-    causes great losses or unrealised gains - and anxiety - for many trading companies
-    due to various pieces of software not handling this correctly!
-    """
-    size = 48 if granularity == "hh" else 24
+    isHh = granularity == "hh"
+    size = hourSize * 2 if isHh else hourSize
     daily_prices = generate_normal_distribution(
         countryCodeMeanPrices[country_code], size
     )
 
-    print("daily prices", daily_prices)
+    times = generate_times(hourSize, True if isHh else False)
+
+    timesAndPrices = np.array(list(zip(times, daily_prices)))
+
+    print("daily prices", timesAndPrices)
 
 
 if __name__ == "__main__":

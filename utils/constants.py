@@ -17,11 +17,11 @@ class Granularity(Enum):
     HALF_HOURLY = "hh"
 
 
-_countryCodeBasePrices: Dict[CountryCode, int] = {
+_countryCodeMeanPrices: Dict[CountryCode, int] = {
     CountryCode.DE: 57,
     CountryCode.FR: 58,
     CountryCode.GB: 61,
     CountryCode.NL: 52,
 }
 
-countryCodeBasePrices = MappingProxyType(_countryCodeBasePrices)
+countryCodeMeanPrices = MappingProxyType(_countryCodeMeanPrices)

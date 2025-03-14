@@ -4,7 +4,7 @@ from typing import Optional
 import numpy as np
 import typer
 
-from utils.constants import CountryCode, countryCodeBasePrices
+from utils.constants import CountryCode, countryCodeMeanPrices
 from utils.generate_normal_distribution import generate_normal_distribution
 from utils.generate_random_prices import generate_random_prices
 from utils.validation import validate_non_negative
@@ -54,7 +54,7 @@ def daily_prices(
     causes great losses or unrealised gains - and anxiety - for many trading companies
     due to various pieces of software not handling this correctly!
     """
-    daily_prices = generate_normal_distribution(countryCodeBasePrices[country_code], 24)
+    daily_prices = generate_normal_distribution(countryCodeMeanPrices[country_code], 24)
 
     print("daily prices", daily_prices)
 

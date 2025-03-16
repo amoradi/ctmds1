@@ -17,7 +17,7 @@ $ # random-prices
 $ poetry run python3 -m cli random-prices <number-of-prices>
 $
 $ # daily prices
-$ poetry run python3 -m cli daily-prices
+$ poetry run python3 -m cli daily-prices <date> <country-code> --granularity h or hh
 ```
 
 ## Dev Commands

@@ -34,7 +34,7 @@ def daily_prices(
     ),
     granularity: str = typer.Option(default="h", help="h: hourly hh: half hourly"),
 ):
-    hourSize = 24
+    hour_size = 24
 
     match is_dst_transition_day(for_date.strftime("%Y-%m-%d"), country_code.value):
         case "short":
@@ -42,17 +42,17 @@ def daily_prices(
         case "long":
             hourSize = 25
 
-    isHh = granularity == "hh"
-    size = hourSize * 2 if isHh else hourSize
+    is_hh = granularity == "hh"
+    size = hour_size * 2 if is_hh else hour_size
     daily_prices = generate_normal_distribution(
         countryCodeMeanPrices[country_code], size
     )
 
-    times = generate_times(hourSize, True if isHh else False)
+    times = generate_times(hour_size, True if is_hh else False)
 
-    timesAndPrices = np.array(list(zip(times, daily_prices)))
+    times_and_prices = np.array(list(zip(times, daily_prices)))
 
-    print("daily prices", timesAndPrices)
+    print("daily prices", times_and_prices)
 
 
 if __name__ == "__main__":

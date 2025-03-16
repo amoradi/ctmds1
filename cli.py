@@ -4,7 +4,7 @@ from typing import Optional
 import numpy as np
 import typer
 
-from utils.constants import CountryCode, countryCodeMeanPrices
+from utils.constants import CountryCode, country_code_mean_prices
 from utils.generate_normal_distribution import generate_normal_distribution
 from utils.generate_random_prices import generate_random_prices
 from utils.generate_times import generate_times
@@ -38,14 +38,14 @@ def daily_prices(
 
     match is_dst_transition_day(for_date.strftime("%Y-%m-%d"), country_code.value):
         case "short":
-            hourSize = 23
+            hour_size = 23
         case "long":
-            hourSize = 25
+            hour_size = 25
 
     is_hh = granularity == "hh"
     size = hour_size * 2 if is_hh else hour_size
     daily_prices = generate_normal_distribution(
-        countryCodeMeanPrices[country_code], size
+        country_code_mean_prices[country_code], size
     )
 
     times = generate_times(hour_size, True if is_hh else False)

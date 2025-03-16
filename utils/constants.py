@@ -14,7 +14,7 @@ class Granularity(Enum):
     HALF_HOURLY = "hh"
 
 
-countryCodeMeanPrices: dict[CountryCode, int] = {
+country_code_mean_prices: dict[CountryCode, int] = {
     CountryCode.DE: 57,
     CountryCode.FR: 58,
     CountryCode.GB: 61,
